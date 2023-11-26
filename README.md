@@ -14,6 +14,6 @@
 
 ## Лицензия
 
-Автор: ...
+Автор: [magistar0](https://github.com/magistar0/)
 
-Оригинальный репозиторий: ...
+Оригинальный репозиторий: [magistar0/infa100](https://github.com/magistar0/infa100)
