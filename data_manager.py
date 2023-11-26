@@ -10,7 +10,7 @@ import pathlib
 import Levenshtein
 import re
 import requests
-from github import Github
+# from github import Github
 from itertools import chain
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -53,7 +53,7 @@ class Config(object):
         except socket.gaierror:
             return False
         return True
-    
+
     TECH_SITE = "https://tech.sga235.ru/"
     G_TKN, E_TKN = None, None
     if checkInternetConnection():
@@ -90,7 +90,7 @@ class Config(object):
         return Config.getTimeAsStr(now)
 
     def getLatestBuild() -> str:
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         contents = repo.get_contents("current_build.json")
@@ -99,7 +99,7 @@ class Config(object):
         return data['current_build']
 
     def rewriteLatestBuild(build) -> None:
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         writeable = {"current_build": str(build)}
@@ -153,16 +153,16 @@ class Config(object):
 
     def getButtonStyles() -> dict:
         return Config.button_styles
-    
+
     def checkIfSizeWasChanged(old_settings: dict, new_settings: dict) -> bool:
         return old_settings["size"] != new_settings["size"]
-    
+
     def emailIsValid(email: str) -> bool:
         if not email:
             return True
         pattern = r"[^@]+@[^@]+\.[^@]+"
         return not not re.match(pattern, email) or email is None
-    
+
     def generateRunningFile():
         pth = '%s/INFA100/running.txt' %  Config.APPDATA
         with open(pth, "w", encoding="utf-8") as f:
@@ -194,7 +194,7 @@ class Email(object):
         msg["From"] = sender_email
         msg["To"] = receiver_email
 
-        body_text = MIMEText(msg_text, 'plain')  
+        body_text = MIMEText(msg_text, 'plain')
         msg.attach(body_text)
 
         with open(msg_filename, 'rb') as fp:
@@ -220,7 +220,7 @@ class Email(object):
 
 class ID_Vars(object):
     def get_last_id() -> int:
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         contents = repo.get_contents("last_id.json")
@@ -229,7 +229,7 @@ class ID_Vars(object):
         return data['last_id']
 
     def rewrite_last_id(num: int) -> None:
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         writeable = {"last_id": num}
@@ -240,11 +240,11 @@ class ID_Vars(object):
         var_dict = {}
         for key in tasks_data:
             var_dict[key] = tasks_data[key]['id']
-        
+
         var_id = ID_Vars.get_last_id() + 1
         ID_Vars.rewrite_last_id(var_id)
 
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         filename = "%d.json" % var_id
@@ -253,7 +253,7 @@ class ID_Vars(object):
 
     def check_if_id_is_valid(id: str) -> bool:
         id = str(id)
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         contents = repo.get_contents("")
@@ -266,7 +266,7 @@ class ID_Vars(object):
 
     def get_data_by_id(id: str) -> dict:
         id = str(id)
-        g = Github(Config.G_TKN)
+        # g = Github(Config.G_TKN)
         user = g.get_user()
         repo = user.get_repos()[0]
         filename = "%s.json" % id

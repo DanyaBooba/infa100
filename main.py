@@ -59,7 +59,7 @@ class Main(QMainWindow, UI_MainWindow):
         self.btn_2.clicked.connect(self.window_3_dialogAction)
         self.btn_4.clicked.connect(self.show_window_4)
         self.btn_5.clicked.connect(self.show_window_5)
-        
+
     def show_window_2(self):
         win.translateToBase()
 
@@ -110,7 +110,7 @@ class Main(QMainWindow, UI_MainWindow):
                     pass
                 elif not self.id_is_valid:
                     QMessageBox.critical(self, Localization.EMAIL_ERROR_HEADER, Localization.BYID_ERROR_0, QMessageBox.Ok)
-                else: 
+                else:
                     pass
 
 
@@ -177,7 +177,7 @@ class CoreMain(QMainWindow):
                 event.accept()
             else:
                 event.ignore()
-                
+
 
 def load_fonts_from_dir(directory):
     families = set()
@@ -205,7 +205,7 @@ if __name__ == "__main__":
         if not "19-21" in save_manager.read_save()["save_data"]:
             save_manager.change19_21SaveFormat()
 
-        
+
         currentExitCode = 1337
         while currentExitCode == 1337:
             Config.generateRunningFile()
@@ -223,20 +223,20 @@ if __name__ == "__main__":
             win = CoreMain()
             win.show()
 
-            if Config.checkInternetConnection():
-                if not Config.checkIfBuildIsLatest():
-                    update_box = QMessageBox()
-                    update_box.setIcon(QMessageBox.Information)
-                    update_box.setWindowIcon(QIcon('icons/icon.png'))
-                    update_box.setWindowTitle(Localization.UPDATE_HEADER)
-                    update_box.setText(Localization.UPDATE_TEXT)
-                    update_box.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
-                    buttonY = update_box.button(QMessageBox.Yes)
-                    buttonY.setText(Localization.UPDATE_YES)
-                    buttonY.clicked.connect(lambda: webbrowser.open('https://sga235.ru/infa100'))
-                    buttonN = update_box.button(QMessageBox.No)
-                    buttonN.setText(Localization.UPDATE_NO)
-                    update_box.exec_()
+            # if Config.checkInternetConnection():
+                # if not Config.checkIfBuildIsLatest():
+                #     update_box = QMessageBox()
+                #     update_box.setIcon(QMessageBox.Information)
+                #     update_box.setWindowIcon(QIcon('icons/icon.png'))
+                #     update_box.setWindowTitle(Localization.UPDATE_HEADER)
+                #     update_box.setText(Localization.UPDATE_TEXT)
+                #     update_box.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+                #     buttonY = update_box.button(QMessageBox.Yes)
+                #     buttonY.setText(Localization.UPDATE_YES)
+                #     buttonY.clicked.connect(lambda: webbrowser.open('https://sga235.ru/infa100'))
+                #     buttonN = update_box.button(QMessageBox.No)
+                #     buttonN.setText(Localization.UPDATE_NO)
+                #     update_box.exec_()
             currentExitCode = app.exec_()
             app = None
             Config.deleteRunningFule()
